@@ -2,6 +2,7 @@
 from openpilot.cereal import custom
 from opendbc.car.structs import car
 from openpilot.common.gps import get_gps_location_service
+from openpilot.common.hardware import HARDWARE
 from openpilot.common.params import Params
 from openpilot.common.realtime import Priority, config_realtime_process
 from openpilot.common.swaglog import cloudlog
@@ -11,7 +12,7 @@ import openpilot.cereal.messaging as messaging
 
 
 def main():
-  config_realtime_process(5, Priority.CTRL_LOW)
+  config_realtime_process(6 if HARDWARE.get_device_type() == "mici" else 5, Priority.CTRL_LOW)
 
   cloudlog.info("plannerd is waiting for CarParams")
   params = Params()
